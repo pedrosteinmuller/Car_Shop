@@ -15,7 +15,7 @@ class Cars {
   }
 
   async createCar(car: ICar) {
-    const newCar = await this.model.createCar(car);
+    const newCar = await this.model.create(car);
     return Cars.createDomain(newCar);
   }
 
@@ -23,7 +23,7 @@ class Cars {
     if (!isValidObjectId(id)) {
       throw new GenericError(422, 'Invalid mongo id');
     }
-    const car = await this.model.getCarById(id);
+    const car = await this.model.getById(id);
     if (!car) {
       throw new GenericError(404, 'Car not found');
     }
@@ -34,7 +34,7 @@ class Cars {
     if (!isValidObjectId(id)) {
       throw new GenericError(422, 'Invalid mongo id');
     }
-    const updatedCar = await this.model.updateCar(id, car);
+    const updatedCar = await this.model.update(id, car);
     if (!updatedCar) {
       throw new GenericError(404, 'Car not found');
     }
@@ -42,7 +42,7 @@ class Cars {
   }
 
   async getAllCars() {
-    const cars = await this.model.findCar();
+    const cars = await this.model.find();
     const allCars = cars.map((c) => Cars.createDomain(c));
     return { status: 200, message: allCars };
   }

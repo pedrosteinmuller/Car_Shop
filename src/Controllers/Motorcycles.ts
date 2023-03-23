@@ -15,6 +15,25 @@ class Motorcycles {
       next(error);
     }
   }
+
+  async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { status, message } = await this.service.getAllMotorcycles();
+      return res.status(status).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getCarById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { status, message } = await this.service.getMotorcyclesById(id);
+      return res.status(status).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default Motorcycles;

@@ -30,6 +30,17 @@ class Cars {
     return { status: 200, message: Cars.createDomain(car) };
   }
 
+  async updateCar(id: string, car: Partial<ICar>) {
+    if (!isValidObjectId(id)) {
+      throw new GenericError(422, 'Invalid mongo id');
+    }
+    const updatedCar = await this.model.updateCar(id, car);
+    if (!updatedCar) {
+      throw new GenericError(404, 'Car not found');
+    }
+    return { status: 200, message: Cars.createDomain(updatedCar) };
+  }
+
   async getAllCars() {
     const cars = await this.model.findCar();
     const allCars = cars.map((c) => Cars.createDomain(c));

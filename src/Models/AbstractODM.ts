@@ -27,6 +27,15 @@ abstract class AbstractODM<T> {
       return null;
     }
   }
+
+  public async updateCar(id: string, obj: Partial<T>) {
+    const updateObj = await this.model.findByIdAndUpdate(
+      { _id: id },
+      obj,
+      { new: true },
+    );
+    return updateObj;
+  }
 }
 
 export default AbstractODM;

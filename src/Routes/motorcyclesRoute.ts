@@ -9,6 +9,8 @@ router.post('/', (req, res, next) => motorcycleController.createMotorcycle(req, 
 
 router.get('/', (req, res, next) => motorcycleController.getAll(req, res, next));
 
-router.get('/:id', (req, res, next) => motorcycleController.getCarById(req, res, next));
+router.get('/:id', (req, res, next) => motorcycleController.getMotorcycleById(req, res, next));
+
+router.put('/:id', (req, res, next) => motorcycleController.updateMotorcycle(req, res, next));
 
 export default router;

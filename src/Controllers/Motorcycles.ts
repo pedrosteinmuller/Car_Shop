@@ -25,10 +25,20 @@ class Motorcycles {
     }
   }
 
-  async getCarById(req: Request, res: Response, next: NextFunction) {
+  async getMotorcycleById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
       const { status, message } = await this.service.getMotorcyclesById(id);
+      return res.status(status).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateMotorcycle(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { status, message } = await this.service.updateMotorcycles(id, req.body);
       return res.status(status).json(message);
     } catch (error) {
       next(error);

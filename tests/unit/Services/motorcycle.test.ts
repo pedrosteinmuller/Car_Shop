@@ -96,5 +96,13 @@ describe('Testes da camada Service de Motorcycle', function () {
       expect((error as Error).message).to.be.deep.equal('Motorcycle not found');
     }
   });
+
+  it('Deleta uma motorcycle com sucesso', async function () {
+    sinon.stub(Model, 'findById').resolves(true);
+    sinon.stub(Model, 'findByIdAndDelete').resolves(true);
+    const service = new MotorcycleService();
+    const result = await service.deleteMotorcycle('089742326b35b59438fbea2f');
+    expect(result.message).to.be.deep.equal('');
+  });
   afterEach(sinon.restore);
 });

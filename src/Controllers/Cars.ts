@@ -44,6 +44,16 @@ class Cars {
       next(error);
     }
   }
+
+  async deletedCar(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { status, message } = await this.service.deleteCar(id);
+      return res.status(status).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default Cars;

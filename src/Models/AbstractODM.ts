@@ -36,6 +36,15 @@ abstract class AbstractODM<T> {
     );
     return updateObj;
   }
+
+  public async delete(id: string) {
+    const verifyExistId = await this.getById(id);
+    if (!verifyExistId) {
+      return null;
+    }
+    const resultDeleted = await this.model.findByIdAndDelete(id);
+    return resultDeleted;
+  }
 }
 
 export default AbstractODM;

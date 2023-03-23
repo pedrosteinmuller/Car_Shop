@@ -5,6 +5,8 @@ import Car from '../../../src/Domains/Car';
 import ICar from '../../../src/Interfaces/ICar';
 import CarsService from '../../../src/Services/Cars';
 
+const INVALID_MONGO_ID = 'Invalid mongo id';
+
 describe('Testes da camada Service de Car', function () {
   const carsObj = [
     new Car({
@@ -83,7 +85,7 @@ describe('Testes da camada Service de Car', function () {
       const service = new CarsService();
       await service.getCarById('11');
     } catch (error) {
-      expect((error as Error).message).to.be.deep.equal('Invalid mongo id');
+      expect((error as Error).message).to.be.deep.equal(INVALID_MONGO_ID);
     }
   });
 
@@ -109,8 +111,16 @@ describe('Testes da camada Service de Car', function () {
       const service = new CarsService();
       await service.updateCar('1', carInput);
     } catch (error) {
-      expect((error as Error).message).to.be.deep.equal('Invalid mongo id');
+      expect((error as Error).message).to.be.deep.equal(INVALID_MONGO_ID);
     }
+  });
+
+  it('Deleta um carro com sucesso', async function () {
+    sinon.stub(Model, 'findById').resolves(true);
+    sinon.stub(Model, 'findByIdAndDelete').resolves(true);
+    const service = new CarsService();
+    const result = await service.deleteCar('089742326b35b59438fbea2f');
+    expect(result.message).to.be.deep.equal('');
   });
 
   afterEach(sinon.restore);

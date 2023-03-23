@@ -13,4 +13,6 @@ router.get('/:id', (req, res, next) => carsController.getCarById(req, res, next)
 
 router.put('/:id', (req, res, next) => carsController.updateCar(req, res, next));
 
+router.delete('/:id', (req, res, next) => carsController.deletedCar(req, res, next));
+
 export default router;

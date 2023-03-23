@@ -25,7 +25,7 @@ class Motorcycless {
     }
     const motorcycles = await this.model.getById(id);
     if (!motorcycles) {
-      throw new GenericError(404, 'Motorcycles not found');
+      throw new GenericError(404, 'Motorcycle not found');
     }
     return { status: 200, message: Motorcycless.createDomain(motorcycles) };
   }
